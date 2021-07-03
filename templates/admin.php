@@ -1,3 +1,9 @@
+<?php
+	echo 'PHP is working!';
+	
+
+?>
+
 <h1> Google maps </h1>
 
 <!DOCTYPE html>

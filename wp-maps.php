@@ -11,8 +11,13 @@ if( ! defined( 'ABSPATH' ) ){
 
 class MapPlugin {
 
+
+	public $plugin;
+
 	function __construct(){
 		add_action('init' , array( $this, 'custom_post_type'));
+		
+		$this->plugin = plugin_basename( __FILE__ );
 	}
 	
 	function register(){
@@ -20,6 +25,12 @@ class MapPlugin {
 		add_action('admin_enqueue_scripts', array($this, 'enqueue'));
 		
 		add_action( 'admin_menu' , array( $this, 'add_admin_pages' ));
+		
+	}
+	
+	function settings_link( $links ){
+		// add custom settings link
+	
 	}
 	
 	function add_admin_pages(){
@@ -75,5 +86,13 @@ register_activation_hook( __FILE__, array($mapPlugin, 'activate'));
 register_deactivation_hook( __FILE__, array($mapPlugin, 'deactivate'));
 
 // uninstall
+
+
+// db include
+include_once("db_init.php");
+register_activation_hook( __FILE__, 'DBP_tb_create');
+
+
+
 
 
