@@ -1,8 +1,25 @@
+<table border="1">
+<tr>
+<th>ID</th>
+<th>Latitude</th>
+<th>Longitude</th>
+</tr>
 <?php
-	echo 'PHP is working!';
-	
-
+global $wpdb;
+$result = $wpdb->get_results ( "SELECT * FROM wp_pins" );
+foreach ( $result as $print ) {
 ?>
+<tr>
+<td><?php echo $print->id;?></td>
+<td><?php echo $print->latitude;?></td>
+<td><?php echo $print->longitude;?></td>
+</tr>
+<?php
+}
+?>
+</table>
+
+
 
 <h1> Google maps </h1>
 
@@ -26,19 +43,42 @@
 		
 		function initMap() {
 
-		  const map = new google.maps.Map(document.getElementById("map"), {
-			zoom: 4,
-			center: cords[0],
-		  });
-		  // The marker, positioned at Uluru
-		  for(let i = 0; i < cords.length; i ++){
-			  new google.maps.Marker({
-				position: cords[i],
-				map: map,
-			  });
-		  }		  
-		  
+		  	var lat;
+		    var lng;
+		    var myLatLng;
+		    var bounds = new google.maps.LatLngBounds();
+		    var map = new google.maps.Map(document.getElementById('map'), {
+		        zoom: 15,
+		        center: myLatLng
+		    });
+		
+		
+			<?php
+		    foreach ( $result as $pin ) {   //Creates a loop to loop through results
+		   		$lat = $pin->latitude;
+		       	$lng = $pin->longitude;
+		       	
+		       	//$lat = 14;
+		       	//$lng = 11.035;
+		       	
+		        echo "
+		       		lat = $lng;
+		            lng = $lat;
+		            myLatLng = {lat,lng};
+		            var position = new google.maps.LatLng( lat, lng );
+		            bounds.extend( position );
+		            var marker = new google.maps.Marker({
+		                position: position,
+		                map: map
+		            });";
+		    }
+		    ?>
+		    map.fitBounds(bounds);
+		    
 		}
+		
+		
+		
     </script>
     
   </head>
