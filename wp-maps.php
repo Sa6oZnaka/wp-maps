@@ -92,6 +92,10 @@ register_deactivation_hook( __FILE__, array($mapPlugin, 'deactivate'));
 include_once("db_init.php");
 register_activation_hook( __FILE__, 'DBP_tb_create');
 
+// get API DATA
+
+include_once("save_data.php");
+register_activation_hook( __FILE__, 'save_to_database');
 
 
 
