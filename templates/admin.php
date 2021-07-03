@@ -1,24 +1,7 @@
-<table border="1">
-<tr>
-<th>ID</th>
-<th>Latitude</th>
-<th>Longitude</th>
-</tr>
 <?php
 global $wpdb;
 $result = $wpdb->get_results ( "SELECT * FROM wp_pins" );
-foreach ( $result as $print ) {
 ?>
-<tr>
-<td><?php echo $print->id;?></td>
-<td><?php echo $print->latitude;?></td>
-<td><?php echo $print->longitude;?></td>
-</tr>
-<?php
-}
-?>
-</table>
-
 
 
 <h1> Google maps </h1>
@@ -92,6 +75,25 @@ foreach ( $result as $print ) {
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTe22xnL6uMAujuHn86a04WDcj2lISKCk&callback=initMap&libraries=&v=weekly"
       async
     ></script>
+    
+    <table border="1">
+	<tr>
+	<th>ID</th>
+	<th>Latitude</th>
+	<th>Longitude</th>
+	</tr>
+	<?php
+	foreach ( $result as $print ) {
+	?>
+	<tr>
+	<td><?php echo $print->id;?></td>
+	<td><?php echo $print->latitude;?></td>
+	<td><?php echo $print->longitude;?></td>
+	</tr>
+	<?php
+	}
+	?>
+	</table>
     
     
   </body>
